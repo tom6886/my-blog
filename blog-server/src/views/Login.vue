@@ -30,6 +30,7 @@
         },
         methods: {
             login() {
+                this.$Message.error(this.username)
             }
         }
     }
@@ -39,8 +40,7 @@
     .login_images {
         width: 100%;
         height: 100vh;
-        background: url('../assets/images/login.jpeg') no-repeat;
+        background: url('../assets/images/login.jpeg') no-repeat center center;
         background-size: cover;
-        background-position: center center;
     }
 </style>

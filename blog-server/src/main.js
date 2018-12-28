@@ -13,7 +13,9 @@ import {
     Menu,
     MenuGroup,
     MenuItem,
+    Message,
     Modal,
+    Notice,
     Page,
     Poptip,
     Radio,
@@ -52,6 +54,8 @@ Vue.component('Modal', Modal);
 Vue.component('i-circle', Circle);
 Vue.component('Poptip', Poptip);
 Vue.component('Upload', Upload);
+Vue.prototype.$Notice = Notice;
+Vue.prototype.$Message = Message;
 
 new Vue({
     router,
