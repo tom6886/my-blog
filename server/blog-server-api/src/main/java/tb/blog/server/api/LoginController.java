@@ -12,16 +12,23 @@ import tb.blog.server.service.ISysUserService;
 
 import java.util.Map;
 
+/**
+ * @author tangbo
+ */
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/")
 public class LoginController {
     @Autowired
     private ISysUserService sysUserService;
+
+//    @Autowired
+//    private BCryptUtil bCryptUtil;
 
     @RequestMapping(value = "/login", method = RequestMethod.POST, consumes = "application/json")
     public R login(@RequestBody Map<String, Object> params) {
         String username = params.get("username").toString();
         String password = params.get("password").toString();
+//        String password = bCryptUtil.encoder(params.get("password").toString());
         SysUserEntity user = sysUserService.getOne(new QueryWrapper<SysUserEntity>().eq("account", username).eq("password", password));
         return R.ok(user);
     }
