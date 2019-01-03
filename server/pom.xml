@@ -18,7 +18,7 @@
 
     <modules>
         <module>blog-server-api</module>
-        <module>blog-server-common</module>
+        <module>blog-server-config</module>
         <module>blog-server-data</module>
         <module>blog-server-service</module>
     </modules>
