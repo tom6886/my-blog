@@ -21,7 +21,7 @@ export const appRouter = [
         path: '/home',
         name: 'home',
         meta: {
-            title: 'Login - 登录',
+            title: '主页',
             hideInMenu: true
         },
         component: () => import('@/views/Home.vue')

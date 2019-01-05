@@ -2,35 +2,57 @@
     <div class="login_images">
         <!-- <router-link :to="{name:'admin'}">跳转admin页面</router-link> -->
         <Row>
-            <Col offset="20" span="4" style="float:right;margin-right:10%;margin-top:20%;">
+            <Form :model="user" :rules="ruleValidate" ref="form"
+                  style="float:right;margin-right:10%;margin-top:20%;width:300px;">
                 <Card>
                     <p slot="title">欢迎登录</p>
-                    <Input name="username" placeholder="请输入用户名" type="text" v-model="username">
-                        <span slot="prepend"><Icon :size="16" type="ios-person"></Icon></span>
-                    </Input>
-                    <br>
-                    <Input name="password" placeholder="请输入密码" type="password" v-model="password">
-                        <span slot="prepend"><Icon :size="14" type="md-lock"></Icon></span>
-                    </Input>
-                    <br>
-                    <Button @click="login" long type="primary">登录</Button>
+                    <FormItem prop="username">
+                        <Input name="username" placeholder="请输入用户名" type="text" v-model="user.username">
+                            <span slot="prepend"><Icon :size="16" type="ios-person"></Icon></span>
+                        </Input>
+                    </FormItem>
+                    <FormItem prop="password">
+                        <Input name="password" placeholder="请输入密码" type="password" v-model="user.password">
+                            <span slot="prepend"><Icon :size="14" type="md-lock"></Icon></span>
+                        </Input>
+                    </FormItem>
+                    <FormItem>
+                        <Button @click="login" long type="primary">登录</Button>
+                    </FormItem>
                 </Card>
-            </Col>
+            </Form>
         </Row>
     </div>
 </template>
 
 <script>
+
     export default {
         data() {
             return {
-                username: '',
-                password: ''
+                user: {
+                    username: '',
+                    password: ''
+                },
+                ruleValidate: {
+                    username: [
+                        {required: true, message: '用户名不可为空', trigger: 'blur'}
+                    ],
+                    password: [
+                        {required: true, message: '密码不可为空', trigger: 'blur'}
+                    ]
+                }
             }
         },
         methods: {
             login() {
-                this.$Message.error(this.username)
+                this.$refs["form"].validate((valid) => {
+                    if (valid) {
+                        this.$Message.success('Success!');
+                    } else {
+                        this.$Message.error('Fail!');
+                    }
+                })
             }
         }
     }

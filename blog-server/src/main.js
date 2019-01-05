@@ -7,6 +7,8 @@ import {
     Circle,
     Col,
     DatePicker,
+    Form,
+    FormItem,
     Icon,
     Input,
     Layout,
@@ -32,6 +34,8 @@ import store from './store'
 
 Vue.config.productionTip = false;
 
+Vue.component('Form', Form);
+Vue.component('FormItem', FormItem);
 Vue.component('Button', Button);
 Vue.component('Row', Row);
 Vue.component('Col', Col);
