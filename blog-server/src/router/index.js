@@ -12,7 +12,7 @@ export const router = new Router({
 });
 
 router.beforeEach((to, from, next) => {
-    if (!Cookies.get("token") && to.name !== "login") {
+    if (!Cookies.get("accessToken") && to.name !== "login") {
         router.push({
             name: "login"
         });

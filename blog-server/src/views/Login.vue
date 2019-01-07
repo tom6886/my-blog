@@ -17,7 +17,7 @@
                         </Input>
                     </FormItem>
                     <FormItem>
-                        <Button @click="login" long type="primary">登录</Button>
+                        <Button @click="beforeLogin" long type="primary">登录</Button>
                     </FormItem>
                 </Card>
             </Form>
@@ -26,6 +26,9 @@
 </template>
 
 <script>
+    import {fetch} from "../utils/api";
+    import Cookies from 'js-cookie';
+    import {router} from "../router/index";
 
     export default {
         data() {
@@ -45,14 +48,26 @@
             }
         },
         methods: {
-            login() {
+            beforeLogin() {
                 this.$refs["form"].validate((valid) => {
                     if (valid) {
-                        this.$Message.success('Success!');
+                        this.login();
                     } else {
-                        this.$Message.error('Fail!');
+                        this.$Message.error('请先完善信息!');
                     }
                 })
+            },
+            async login() {
+                let res = await fetch("login", this.user);
+                if (res.code !== 0) {
+                    this.$Message.error(res.msg);
+                    return;
+                }
+
+                Cookies.set("accessToken", res.data);
+                router.push({
+                    name: "home"
+                });
             }
         }
     }

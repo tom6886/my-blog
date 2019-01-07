@@ -2,11 +2,15 @@ import Vue from 'vue'
 import App from './App.vue'
 import {router} from './router/index'
 import {
+    Avatar,
     Button,
     Card,
     Circle,
     Col,
     DatePicker,
+    Dropdown,
+    DropdownItem,
+    DropdownMenu,
     Form,
     FormItem,
     Icon,
@@ -36,6 +40,10 @@ Vue.config.productionTip = false;
 
 Vue.component('Form', Form);
 Vue.component('FormItem', FormItem);
+Vue.component('Dropdown', Dropdown);
+Vue.component('DropdownMenu', DropdownMenu);
+Vue.component('DropdownItem', DropdownItem);
+Vue.component('Avatar', Avatar);
 Vue.component('Button', Button);
 Vue.component('Row', Row);
 Vue.component('Col', Col);

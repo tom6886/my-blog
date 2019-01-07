@@ -1,3 +1,5 @@
+import Main from '../views/Main';
+
 export const page404 = {
     path: '/*',
     name: 'error-404',
@@ -12,19 +14,27 @@ export const appRouter = [
         path: '/login',
         name: 'login',
         meta: {
-            title: 'Login - 登录',
-            hideInMenu: true
+            title: 'Login - 登录'
         },
         component: () => import('@/views/Login.vue')
     },
     {
-        path: '/home',
-        name: 'home',
-        meta: {
-            title: '主页',
-            hideInMenu: true
-        },
-        component: () => import('@/views/Home.vue')
+        path: '/',
+        component: Main,
+        children: [
+            {
+                path: 'home',
+                name: 'home',
+                meta: {title: '主页'},
+                component: () => import('@/views/Home.vue')
+            },
+            {
+                path: 'article',
+                name: 'article',
+                component: () => import('@/views/Article.vue'),
+                meta: {title: '发表文章'}
+            }
+        ]
     }
 ]
 
