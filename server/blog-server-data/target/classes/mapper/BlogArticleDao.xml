@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="tb.blog.server.data.dao.BlogArticleDao">
+    <select id="queryPage" resultType="java.util.Map">
+        SELECT
+        a.id,
+        a.title,
+        a.des,
+        a.content,
+        a.create_time,
+        a.publish_time,
+        a.classify,
+        b.display_name
+        FROM
+        blog_article a
+        LEFT JOIN sys_user b ON a.create_by = b.id
+        WHERE 1=1
+        <if test="params.classify != null">
+            and classify = #{params.classify}
+        </if>
+
+        <choose>
+            <when test="params.orderBy != null and params.orderBy.trim() != ''">
+                order by ${params.orderBy} ${params.order}
+            </when>
+            <otherwise>
+                order by a.create_time desc
+            </otherwise>
+        </choose>
+    </select>
+</mapper>

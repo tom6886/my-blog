@@ -20,4 +20,6 @@ public class SysUserEntity {
     private String account;
 
     private String password;
+
+    private String displayName;
 }

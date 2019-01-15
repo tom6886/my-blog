@@ -33,6 +33,12 @@ export const appRouter = [
                 name: 'article',
                 component: () => import('@/views/Article.vue'),
                 meta: {title: '发表文章'}
+            },
+            {
+                path: 'articleList',
+                name: 'articleList',
+                component: () => import('@/views/ArticleList.vue'),
+                meta: {title: '文章列表'}
             }
         ]
     }
