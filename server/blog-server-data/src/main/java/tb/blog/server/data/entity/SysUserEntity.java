@@ -5,6 +5,9 @@ import lombok.Data;
 
 import java.util.Date;
 
+/**
+ * @author TB
+ */
 @TableName("sys_user")
 @Data
 public class SysUserEntity {

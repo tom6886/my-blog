@@ -18,23 +18,23 @@
                 </FormItem>
             </Col>
             <Col class="content_right" offset="1" span="4">
-                <FormItem>
+                <FormItem prop="publishTime">
                     <Card class="card">
                         <label class="article" slot="title">发布日期</label>
-                        <DatePicker :value="article.date" class="data_picker" name="date"
-                                    placeholder="Select date"
-                                    size="large" style="width:100%;" type="date"></DatePicker>
+                        <DatePicker class="data_picker" name="date" placeholder="Select date"
+                                    size="large"
+                                    style="width:100%;" type="date" v-model="article.publishTime"></DatePicker>
                     </Card>
                 </FormItem>
                 <FormItem>
                     <Card class="card">
                         <p slot="title">分类目录</p>
-                        <RadioGroup v-model="article.radio" vertical>
-                            <Radio label="Front">
+                        <RadioGroup v-model="article.classify" vertical>
+                            <Radio label="0">
                                 <i class="iconfont icon-h5"></i>
                                 <span class="list_menu">前端开发</span>
                             </Radio>
-                            <Radio label="Back">
+                            <Radio label="1">
                                 <Icon class="iconfont icon-nodejs"></Icon>
                                 <span class="list_menu">后端开发</span>
                             </Radio>
@@ -50,6 +50,7 @@
     import tinymce from 'tinymce/tinymce';
     import 'tinymce/themes/modern/theme';
     import Editor from '@tinymce/tinymce-vue';
+    import {fetch} from "../utils/api";
 
     export default {
         components: {
@@ -60,11 +61,9 @@
                 article: {
                     title: '',
                     content: '',
-                    htmlContent: '',
-                    date: '',
-                    radio: 'Front',
-                    des: '',
-                    originalContent: '',
+                    publishTime: '',
+                    classify: "0",
+                    des: ''
                 },
                 editorInit: {
                     language_url: '/tinymce/zh_CN.js',
@@ -74,10 +73,14 @@
                 },
                 ruleValidate: {
                     title: [
-                        {required: true, message: '标题不可为空', trigger: 'blur'}
+                        {required: true, message: '标题不可为空', trigger: 'blur'},
+                        {type: 'string', max: 25, message: '标题不可超过25个字', trigger: 'blur'}
                     ],
                     content: [
                         {required: true, message: '内容不可为空', trigger: 'blur'}
+                    ],
+                    publishTime: [
+                        {required: true, type: 'date', message: '请选择发布时间', trigger: 'change'}
                     ]
                 }
             }
@@ -87,7 +90,23 @@
         },
         methods: {
             beforeSubmit() {
+                this.$refs["form"].validate((valid) => {
+                    if (valid) {
+                        this.submit();
+                    } else {
+                        this.$Message.error('请正确填写!');
+                    }
+                })
+            },
+            async submit() {
+                let res = await fetch("article/save", this.article);
+                if (res.code !== 0) {
+                    this.$Message.error(res.msg);
+                    return;
+                }
 
+                this.$Message.success('文章发布成功');
+                [this.title, this.des, this.content] = [''];
             }
         }
     }

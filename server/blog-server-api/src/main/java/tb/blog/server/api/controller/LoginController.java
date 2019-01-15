@@ -40,7 +40,7 @@ public class LoginController {
             return R.error("密码错误");
         }
 
-        String token = JwtTokenUtils.createToken(username, false);
+        String token = JwtTokenUtils.createToken(user.getId().toString(), false);
         return R.ok(JwtTokenUtils.TOKEN_PREFIX + token);
     }
 }

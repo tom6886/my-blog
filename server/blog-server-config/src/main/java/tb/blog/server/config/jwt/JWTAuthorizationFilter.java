@@ -30,23 +30,26 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
             chain.doFilter(request, response);
             return;
         }
-        // 如果请求头中有token，则进行解析，并且设置认证信息
-        SecurityContextHolder.getContext().setAuthentication(getAuthentication(tokenHeader));
-        super.doFilterInternal(request, response, chain);
-    }
 
-    /**
-     * 从token中获取用户信息并新建一个token
-     *
-     * @param tokenHeader
-     * @return
-     */
-    private UsernamePasswordAuthenticationToken getAuthentication(String tokenHeader) {
-        String token = tokenHeader.replace(JwtTokenUtils.TOKEN_PREFIX, "");
-        String username = JwtTokenUtils.getUsername(token);
-        if (username != null) {
-            return new UsernamePasswordAuthenticationToken(username, null, new ArrayList<>());
+        try {
+            // 如果请求头中有token，则进行解析，并且设置认证信息，同时刷新token
+            String token = tokenHeader.replace(JwtTokenUtils.TOKEN_PREFIX, "");
+
+            String username = JwtTokenUtils.getUsername(token);
+            if (username == null) {
+                SecurityContextHolder.getContext().setAuthentication(null);
+                return;
+            }
+
+            SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken(username, null, new ArrayList<>()));
+            response.setHeader("Access-Control-Expose-Headers", JwtTokenUtils.TOKEN_HEADER);
+            response.setHeader(JwtTokenUtils.TOKEN_HEADER, JwtTokenUtils.TOKEN_PREFIX + JwtTokenUtils.createToken(username, false));
+        } catch (Exception e) {
+            SecurityContextHolder.getContext().setAuthentication(null);
+        } finally {
+            super.doFilterInternal(request, response, chain);
         }
-        return null;
+
+
     }
 }

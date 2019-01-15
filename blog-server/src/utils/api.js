@@ -13,7 +13,7 @@ axios.interceptors.request.use(
         let token = Cookies.get("accessToken");
         if (token) {
             config.headers = {
-                token: token
+                Authorization: token
             };
         }
         return config;
@@ -35,13 +35,16 @@ axios.interceptors.response.use(
         }
 
         if (res.status === 200) {
+            if (res.headers.authorization) {
+                Cookies.set("accessToken", res.headers.authorization);
+            }
             return res;
         }
 
         return Promise.reject(res);
     },
     error => {
-        if (error.response && error.response.status === 401) {
+        if (error.response && (error.response.status === 401 || error.response.status === 403)) {
             Cookies.remove("accessToken");
 
             router.push({
