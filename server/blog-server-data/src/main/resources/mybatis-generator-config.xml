@@ -42,7 +42,7 @@
         <!--</javaClientGenerator>-->
 
         <!-- 相关表的配置 -->
-        <table tableName="blog_article" enableCountByExample="false" enableDeleteByExample="false"
+        <table tableName="blog_version" enableCountByExample="false" enableDeleteByExample="false"
                enableSelectByExample="false"
                enableUpdateByExample="false"/>
     </context>

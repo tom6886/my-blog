@@ -10,16 +10,10 @@ import java.util.Date;
  */
 @TableName("blog_article")
 @Data
-public class BlogArticleEntity {
-    private Long id;
-
+public class BlogArticleEntity extends BaseEntity {
     private String title;
 
     private String des;
-
-    private Long createBy;
-
-    private Date createTime;
 
     private Date publishTime;
 

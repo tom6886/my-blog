@@ -45,6 +45,12 @@ export const appRouter = [
                 name: 'articleList',
                 component: () => import('@/views/ArticleList.vue'),
                 meta: {title: '文章列表'}
+            },
+            {
+                path: 'version',
+                name: 'version',
+                component: () => import('@/views/Version.vue'),
+                meta: {title: '版本信息'}
             }
         ]
     }

@@ -106,7 +106,7 @@
                 }
 
                 this.$Message.success('文章发布成功');
-                [this.title, this.des, this.content] = [''];
+                [this.article.title, this.article.des, this.article.content] = ['', '', ''];
             }
         }
     }
