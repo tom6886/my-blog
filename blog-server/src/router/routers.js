@@ -35,6 +35,12 @@ export const appRouter = [
                 meta: {title: '发表文章'}
             },
             {
+                path: 'article/:id',
+                name: 'update',
+                component: () => import('@/views/Update.vue'),
+                meta: {title: '更新文章'}
+            },
+            {
                 path: 'articleList',
                 name: 'articleList',
                 component: () => import('@/views/ArticleList.vue'),

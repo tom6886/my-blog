@@ -7,7 +7,6 @@
         a.id,
         a.title,
         a.des,
-        a.content,
         a.create_time,
         a.publish_time,
         a.classify,

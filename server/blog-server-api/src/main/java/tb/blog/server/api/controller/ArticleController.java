@@ -37,4 +37,9 @@ public class ArticleController {
     public R delete(@PathVariable Long id) {
         return blogArticleService.removeById(id) ? R.ok() : R.error("删除失败");
     }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.POST, consumes = "application/json")
+    public R query(@PathVariable Long id) {
+        return R.ok(blogArticleService.getById(id));
+    }
 }
