@@ -1,6 +1,6 @@
 <template>
   <div>
-    <nav-header :active="active"/>
+
     <!-- 左侧文章内容 -->
     <el-row
       class="content-blog"
@@ -36,66 +36,24 @@
       <el-col
         :offset="1"
         :span="5">
-        <el-card class="about">
-          <div class="about-title">about Me</div>
-          <div class="about-name">
-            <img
-              alt="brianlee"
-              src="~/static/images/name.png">
-          </div>
-          <div class="about-content">
-            <p>网名：Brian·Lee</p>
-
-            <p>职业：Web前端工程师</p>
-
-            <p>邮箱：cn_brian@163.com</p>
-          </div>
-        </el-card>
+        <About/>
         <!-- 近期文章开始 -->
-        <el-card class="article">
-          <div class="article-title">近期文章</div>
-          <hr>
-          <nuxt-link
-            v-for="item in lately"
-            :key="item._id"
-            :to="{name:'Front-id',params:{id:item._id}}"
-            class="article-link">
-            <i class="el-icon-edit"/>&nbsp;&nbsp;{{ item.title }}
-          </nuxt-link>
-        </el-card>
+        <Lately :lately="[]"/>
         <!-- 近期文章结束 -->
-
-        <!-- 友情链接开始 -->
-        <el-card class="link">
-          <div class="link-title">友情链接</div>
-          <hr>
-          <div class="link-content">
-            <a
-              class="link-url"
-              href="/"
-              target="_blank">虚位以待</a>
-            <a
-              class="link-url"
-              href="/"
-              target="_blank">虚位以待</a>
-          </div>
-        </el-card>
-        <!-- 友情链接结束 -->
       </el-col>
     </el-row>
-    <nav-footer/>
   </div>
 </template>
 
 <script>
-  import NavHeader from '~/components/NavHeader.vue'
-  import NavFooter from '~/components/Footer.vue'
   import { baseurl } from '~/plugins/url.js'
+  import About from '../components/Index/About'
+  import Lately from '../components/Index/Lately'
 
   export default {
     components: {
-      NavHeader,
-      NavFooter
+      About,
+      Lately
     },
     data() {
       return {
@@ -121,7 +79,7 @@
     },
     head() {
       return {
-        title: 'Tom的个人博客-一个基于Nuxt构建的博客网站',
+        title: 'Tang的个人博客-一个基于Nuxt构建的博客网站',
         meta: [
           { hid: 'description', name: 'description', content: '汤波个人博客，是一个记录博主学习和成长的自媒体博客。关注于web全栈技术的学习研究。' },
           { hid: 'keywords', name: 'keywords', content: '汤波,互联网,自媒体,汤波博客,科技博客,Brian,独立博客,个人博客,原创博客,全栈,全栈开发' },

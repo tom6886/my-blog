@@ -66,7 +66,7 @@
 
                 Cookies.set("accessToken", res.data);
                 router.push({
-                    name: "home"
+                    name: "article"
                 });
             }
         }

@@ -8,7 +8,7 @@
         <el-col :span="20">
           <nuxt-link
             :to="{name:'index'}"
-            class="logo">Brian's Blog
+            class="logo">Tang's Blog
           </nuxt-link>
           <el-menu
             :default-active="active"

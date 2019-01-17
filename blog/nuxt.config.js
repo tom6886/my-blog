@@ -21,14 +21,12 @@ module.exports = {
   /*
   ** Customize the progress-bar color
   */
-  loading: { color: '#fff' },
+  loading: { color: '#3B8070' },
 
   /*
   ** Global CSS
   */
-  css: [
-    'element-ui/lib/theme-chalk/index.css'
-  ],
+  css: ['~assets/css/main.css', 'element-ui/lib/theme-chalk/index.css', '~assets/css/Markdown.css'],
 
   /*
   ** Plugins to load before mounting the App
@@ -43,6 +41,12 @@ module.exports = {
   modules: [
     // Doc: https://github.com/nuxt-community/axios-module#usage
     '@nuxtjs/axios'
+  ],
+  loader: [
+    {
+      test: /\.less$/,
+      loaders: 'style-loader!css-loader!less-loader'
+    }
   ],
   /*
   ** Axios module configuration

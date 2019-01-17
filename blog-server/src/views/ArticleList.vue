@@ -143,7 +143,7 @@
                 try {
                     let params = {
                         page: page,
-                        limit: 2,
+                        limit: 6,
                         classify: classify
                     };
                     let res = await fetch("article/list", params);
