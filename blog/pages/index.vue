@@ -9,15 +9,15 @@
       <el-col :span="10">
         <nuxt-link
           v-for="item in list"
-          :key="item._id"
-          :to="{name:'Front-id',params:{id:item._id}}"
+          :key="item.id"
+          :to="{name:'Front-id',params:{id:item.id}}"
           class="box-href">
           <el-card
             class="box-card"
             shadow="hover">
             <h2 class="box-title">{{ item.title }}</h2>
             <div class="box-icon">
-              <span><i class="el-icon-date"/>&nbsp;{{ item.time }}</span>
+              <span><i class="el-icon-date"/>&nbsp;{{ item.publishTime }}</span>
               <!-- <span><i class="el-icon-view"></i>&nbsp;115次阅读</span> -->
             </div>
             <div class="box-content">{{ item.des }}</div>
@@ -38,7 +38,7 @@
         :span="5">
         <About/>
         <!-- 近期文章开始 -->
-        <Lately :lately="[]"/>
+        <Lately :lately="lately"/>
         <!-- 近期文章结束 -->
       </el-col>
     </el-row>
@@ -55,18 +55,21 @@
       About,
       Lately
     },
-    data() {
-      return {
-        active: 'index'
-      }
-    },
     async asyncData({ app }) {
-      // 服务器端渲染数据
-      // let json = {page:1,pagesize:5}
-      // let {data} =await app.$axios.get(`${baseurl}/api/article/getFrontArticle`,{params:json});
-      // let {list,count} = data;
-      // let lately = list.slice(0,4);
-      // return {list,count,lately}
+      let params = {
+        page: 1,
+        limit: 5,
+        classify: 0,
+        orderBy: 'publish_time',
+        order: 'desc'
+      }
+
+      let { data } = await app.$axios.post(`${baseurl}/server/article/list`, params)
+      console.log(data)
+      let list = data.data.records
+      let count = parseInt(data.data.total)
+      let lately = list.slice(0, 4)
+      return { list, count, lately }
     },
     methods: {
       pagination(page) {

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <nav-header :active="active"/>
+    <nav-header/>
     <nuxt/>
     <nav-footer/>
   </div>

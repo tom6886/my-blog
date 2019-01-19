@@ -38,16 +38,14 @@
 
 <script>
   export default {
-    // props:['active'],
-    props: {
-      active: {
-        type: String,
-        default: 'active'
-      }
-    },
     data() {
       return {
         activeIndex: 'index'
+      }
+    },
+    computed: {
+      active() {
+        return this.$route.name
       }
     },
     methods: {
