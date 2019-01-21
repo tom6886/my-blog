@@ -59,7 +59,7 @@
       let params = {
         page: 1,
         limit: 5,
-        classify: 0,
+        classify: 1,
         orderBy: 'publish_time',
         order: 'desc'
       }
@@ -75,7 +75,7 @@
         let params = {
           page: page,
           limit: 5,
-          classify: 0,
+          classify: 1,
           orderBy: 'publish_time',
           order: 'desc'
         }

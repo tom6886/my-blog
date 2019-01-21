@@ -91,7 +91,7 @@
         },
         methods: {
             async init() {
-                let res = await fetch("article/" + this.$route.params.id, {});
+                let res = await fetch("article/entity/" + this.$route.params.id, {});
                 this.article = res.data;
                 this.article.classify = this.article.classify.toString();
             },

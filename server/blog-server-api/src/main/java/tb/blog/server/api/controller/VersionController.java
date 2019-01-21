@@ -29,6 +29,6 @@ public class VersionController {
 
     @RequestMapping(value = "/list", method = RequestMethod.POST, consumes = "application/json")
     public R list() {
-        return R.ok(blogVersionService.list(new QueryWrapper<>()));
+        return R.ok(blogVersionService.list(new QueryWrapper<BlogVersionEntity>().orderByDesc("create_time")));
     }
 }

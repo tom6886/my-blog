@@ -12,6 +12,7 @@ export const router = new Router({
 });
 
 router.beforeEach((to, from, next) => {
+    window.document.title = 'Tang的个人博客-' + to.meta.title;
     if (!Cookies.get("accessToken") && to.name !== "login") {
         router.push({
             name: "login"

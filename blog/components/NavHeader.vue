@@ -18,12 +18,8 @@
             text-color="#fff"
             @select="handleSelect">
             <el-menu-item index="index">前端文章</el-menu-item>
-            <el-menu-item index="Backarticle">后端文章</el-menu-item>
+            <el-menu-item index="back">后端文章</el-menu-item>
             <el-menu-item index="version">更新日志</el-menu-item>
-            <el-menu-item index=""><a
-              class="docs"
-              href="http://docs.brianlee.cn"
-              target="_blank">文档中心</a></el-menu-item>
             <el-menu-item index="about">关于我</el-menu-item>
           </el-menu>
         </el-col>

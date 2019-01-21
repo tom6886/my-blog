@@ -4,8 +4,8 @@
     <hr>
     <nuxt-link
       v-for="item in lately"
-      :key="item._id"
-      :to="{name:'Front-id',params:{id:item._id}}"
+      :key="item.id"
+      :to="{name:'article-id',params:{id:item.id}}"
       class="article-link">
       <i class="el-icon-edit"/>&nbsp;&nbsp;{{ item.title }}
     </nuxt-link>
