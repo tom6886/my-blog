@@ -31,9 +31,9 @@
                     content: ''
                 },
                 editorInit: {
-                    language_url: '/tinymce/zh_CN.js',
+                    language_url: `${this.$baseUrl}/tinymce/zh_CN.js`,
                     language: 'zh_CN',
-                    skin_url: '/tinymce/skins/lightgray',
+                    skin_url: `${this.$baseUrl}//tinymce/skins/lightgray`,
                     height: 300
                 },
                 ruleValidate: {

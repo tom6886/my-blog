@@ -36,7 +36,7 @@
 
   export default {
     async asyncData({ app }) {
-      let { data } = await app.$axios.post(`${baseurl}/server/version/list`, {})
+      let { data } = await app.$axios.post(`${baseurl}/version/list`, {})
       let list = data.data
       return { list }
     }

@@ -33,7 +33,7 @@
 
   export default {
     async asyncData({ app, params }) {
-      let { data } = await app.$axios.post(`${baseurl}/server/article/entity/` + params.id, {})
+      let { data } = await app.$axios.post(`${baseurl}/article/entity/` + params.id, {})
       let { content, des, classify, publishTime, title } = data.data
       return { title, des, content, classify, publishTime }
     },

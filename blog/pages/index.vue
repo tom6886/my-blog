@@ -64,7 +64,7 @@
         order: 'desc'
       }
 
-      let { data } = await app.$axios.post(`${baseurl}/server/article/list`, params)
+      let { data } = await app.$axios.post(`${baseurl}/article/list`, params)
       let list = data.data.records
       let count = parseInt(data.data.total)
       let lately = list.slice(0, 4)
@@ -79,7 +79,7 @@
           orderBy: 'publish_time',
           order: 'desc'
         }
-        let { data } = await this.$axios.post(`${baseurl}/server/article/list`, params)
+        let { data } = await this.$axios.post(`${baseurl}/article/list`, params)
         this.list = data.data.records
         let count = parseInt(data.data.total)
       }

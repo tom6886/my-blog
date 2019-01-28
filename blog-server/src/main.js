@@ -68,6 +68,7 @@ Vue.component('Poptip', Poptip);
 Vue.component('Upload', Upload);
 Vue.prototype.$Notice = Notice;
 Vue.prototype.$Message = Message;
+Vue.prototype.$baseUrl = process.env.BASE_URL
 
 new Vue({
     router,

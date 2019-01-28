@@ -4,8 +4,6 @@ server:
     max-threads: 1000
     min-spare-threads: 30
   port: 9099
-  servlet:
-    context-path: /server
 
 spring:
   profiles:

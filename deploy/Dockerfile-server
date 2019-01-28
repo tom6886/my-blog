@@ -1,0 +1,12 @@
+# 基于Java8镜像
+FROM java:8
+
+# 复制文件到容器
+ADD api.jar app.jar
+RUN bash -c 'touch /app.jar'
+
+# 声明需要暴露的端口
+EXPOSE 9099
+
+# 配置容器启动后执行的命令
+ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/app.jar"]
