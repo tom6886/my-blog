@@ -21,11 +21,15 @@ import java.util.Map;
 @RequestMapping("/user")
 public class UserController {
 
-    @Autowired
-    private ISysUserService sysUserService;
+    private final ISysUserService sysUserService;
+
+    private final BCryptUtil bCryptUtil;
 
     @Autowired
-    private BCryptUtil bCryptUtil;
+    public UserController(ISysUserService sysUserService, BCryptUtil bCryptUtil) {
+        this.sysUserService = sysUserService;
+        this.bCryptUtil = bCryptUtil;
+    }
 
     @RequestMapping(value = "/changePwd", method = RequestMethod.POST, consumes = "application/json")
     public R changePwd(@RequestBody Map<String, Object> params) {

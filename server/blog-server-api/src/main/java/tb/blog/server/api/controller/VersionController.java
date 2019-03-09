@@ -18,8 +18,12 @@ import tb.blog.server.service.IBlogVersionService;
 @RequestMapping("/version")
 public class VersionController {
 
+    private final IBlogVersionService blogVersionService;
+
     @Autowired
-    private IBlogVersionService blogVersionService;
+    public VersionController(IBlogVersionService blogVersionService) {
+        this.blogVersionService = blogVersionService;
+    }
 
     @AutoModel
     @RequestMapping(value = "/save", method = RequestMethod.POST, consumes = "application/json")

@@ -6,8 +6,7 @@
       <el-col
         :span="24"
         class="footer">
-        <div>COPYRIGHT 2018 BRIAN LEE. ALL RIGHTS RESERVED.</div>
-        <div>皖ICP备18003757号</div>
+        <div>COPYRIGHT 2018 TANG. ALL RIGHTS RESERVED.</div>
       </el-col>
     </el-row>
   </div>

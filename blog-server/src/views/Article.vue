@@ -47,10 +47,20 @@
 </template>
 
 <script>
-    import tinymce from 'tinymce/tinymce';
-    import 'tinymce/themes/modern/theme';
-    import Editor from '@tinymce/tinymce-vue';
-    import {fetch} from "../utils/api";
+    import tinymce from 'tinymce/tinymce'
+    import 'tinymce/themes/modern/theme'
+    import Editor from '@tinymce/tinymce-vue'
+    import {fetch} from "../utils/api"
+    import {upload} from "../utils/upload";
+    import 'tinymce/plugins/image'
+    import 'tinymce/plugins/link'
+    import 'tinymce/plugins/code'
+    import 'tinymce/plugins/table'
+    import 'tinymce/plugins/lists'
+    import 'tinymce/plugins/contextmenu'
+    import 'tinymce/plugins/wordcount'
+    import 'tinymce/plugins/colorpicker'
+    import 'tinymce/plugins/textcolor'
 
     export default {
         components: {
@@ -69,7 +79,19 @@
                     language_url: `${this.$baseUrl}/tinymce/zh_CN.js`,
                     language: 'zh_CN',
                     skin_url: `${this.$baseUrl}//tinymce/skins/lightgray`,
-                    height: 300
+                    height: 300,
+                    plugins: 'link lists image code table colorpicker textcolor wordcount contextmenu',
+                    toolbar: 'bold italic underline strikethrough | fontsizeselect | forecolor backcolor | alignleft aligncenter alignright alignjustify | bullist numlist | outdent indent blockquote | undo redo | link unlink image code | removeformat',
+                    branding: false,
+
+                    /* we override default upload handler to simulate successful upload*/
+                    images_upload_handler: function (blobInfo, success, failure) {
+                        upload(blobInfo.blob()).then(res => {
+                            success(res.data)
+                        }).catch(res => {
+                            failure(res)
+                        })
+                    }
                 },
                 ruleValidate: {
                     title: [

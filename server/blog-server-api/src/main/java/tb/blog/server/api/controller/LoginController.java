@@ -20,11 +20,16 @@ import java.util.Map;
 @RestController
 @RequestMapping("/")
 public class LoginController {
-    @Autowired
-    private ISysUserService sysUserService;
+
+    private final ISysUserService sysUserService;
+
+    private final BCryptUtil bCryptUtil;
 
     @Autowired
-    private BCryptUtil bCryptUtil;
+    public LoginController(ISysUserService sysUserService, BCryptUtil bCryptUtil) {
+        this.sysUserService = sysUserService;
+        this.bCryptUtil = bCryptUtil;
+    }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST, consumes = "application/json")
     public R login(@RequestBody Map<String, Object> params) {

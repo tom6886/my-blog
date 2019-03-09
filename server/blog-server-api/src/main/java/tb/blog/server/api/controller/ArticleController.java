@@ -15,9 +15,13 @@ import java.util.Map;
 @RestController
 @RequestMapping("/article")
 public class ArticleController {
+    
+    private final IBlogArticleService blogArticleService;
 
     @Autowired
-    private IBlogArticleService blogArticleService;
+    public ArticleController(IBlogArticleService blogArticleService) {
+        this.blogArticleService = blogArticleService;
+    }
 
     @AutoModel
     @RequestMapping(value = "/save", method = RequestMethod.POST, consumes = "application/json")

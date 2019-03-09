@@ -4,8 +4,8 @@ import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
+import tb.blog.server.config.util.UserContext;
 import tb.blog.server.data.entity.BaseEntity;
 
 import java.util.Collection;
@@ -44,7 +44,7 @@ public class AutoModelAspect {
 
     private void insertCreator(Object entity) {
         if (((BaseEntity) entity).getId() == null) {
-            Long userName = Long.valueOf(SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString());
+            Long userName = UserContext.get();
             ((BaseEntity) entity).setCreateBy(userName);
             ((BaseEntity) entity).setCreateTime(new Date());
         }

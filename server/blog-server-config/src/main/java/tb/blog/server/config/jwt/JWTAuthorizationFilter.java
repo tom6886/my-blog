@@ -4,6 +4,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
+import tb.blog.server.config.util.UserContext;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -41,6 +42,7 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
                 return;
             }
 
+            UserContext.set(Long.valueOf(username));
             SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken(username, null, new ArrayList<>()));
             response.setHeader("Access-Control-Expose-Headers", JwtTokenUtils.TOKEN_HEADER);
             response.setHeader(JwtTokenUtils.TOKEN_HEADER, JwtTokenUtils.TOKEN_PREFIX + JwtTokenUtils.createToken(username, false));

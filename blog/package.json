@@ -1,7 +1,7 @@
 {
   "name": "blog",
   "version": "1.0.0",
-  "description": "My posh Nuxt.js project",
+  "description": "我的个人博客",
   "author": "汤波",
   "private": true,
   "scripts": {
