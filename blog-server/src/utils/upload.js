@@ -1,9 +1,9 @@
 import axios from "axios";
 import Cookies from "js-cookie";
 
-export function upload(file) {
+export function upload(id, file) {
     let param = new FormData();
-    param.append('id', 1);
+    param.append('id', id);
     param.append('file', file);
 
     let token = Cookies.get("accessToken");

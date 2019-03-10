@@ -11,7 +11,7 @@
                            v-model="article.des"></Input>
                 </FormItem>
                 <FormItem label="文章内容" prop="content">
-                    <tinymce v-model="article.content"></tinymce>
+                    <tinymce :aId="article.pageId" v-model="article.content"></tinymce>
                 </FormItem>
                 <FormItem>
                     <Button @click="beforeSubmit" class="article_button" type="success">发布文章</Button>
@@ -49,6 +49,7 @@
 <script>
     import tinymce from '../components/Tinymce'
     import {fetch} from "../utils/api"
+    import {guid} from "../utils/guid";
 
     export default {
         components: {
@@ -57,6 +58,7 @@
         data() {
             return {
                 article: {
+                    pageId: '',
                     title: '',
                     content: '',
                     publishTime: '',
@@ -75,6 +77,21 @@
                         {required: true, type: 'date', message: '请选择发布时间', trigger: 'change'}
                     ]
                 }
+            }
+        },
+        mounted() {
+            let _this = this;
+
+            setInterval(function () {
+                localStorage.setItem("article", JSON.stringify(_this.article));
+            }, 30000)
+
+            let _article = localStorage.getItem("article")
+
+            if (_article) {
+                this.article = JSON.parse(_article);
+            } else {
+                this.article.pageId = guid.newGUID();
             }
         },
         methods: {

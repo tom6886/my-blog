@@ -11,6 +11,8 @@ import java.util.Date;
 @TableName("blog_article")
 @Data
 public class BlogArticleEntity extends BaseEntity {
+    private String pageId;
+
     private String title;
 
     private String des;
