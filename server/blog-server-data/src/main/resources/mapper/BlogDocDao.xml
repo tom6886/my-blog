@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="tb.blog.server.data.dao.BlogDocDao">
+    <select id="queryExtra" resultType="tb.blog.server.data.entity.BlogDocEntity">
+		SELECT
+			a.*
+		FROM
+			blog_doc a
+		LEFT JOIN blog_article b ON a.article_id = b.page_id
+		WHERE
+			b.id IS NULL
+	</select>
+
+
+    <select id="queryNoRepeatExtra" resultType="java.lang.String">
+        SELECT
+        	a. NAME
+        FROM
+        	blog_doc a
+        JOIN (
+        	SELECT
+        		c.`name`
+        	FROM
+        		blog_doc c
+        	LEFT JOIN blog_article d ON c.article_id = d.page_id
+        	WHERE
+        		d.id IS NULL
+        ) b ON a. NAME = b.`name`
+        GROUP BY
+        	a.`name`
+        HAVING COUNT(1) = 1
+    </select>
+
+    <select id="queryAllKeys" resultType="java.lang.String">
+		SELECT
+		DISTINCT NAME
+		FROM
+		blog_doc
+	</select>
+</mapper>

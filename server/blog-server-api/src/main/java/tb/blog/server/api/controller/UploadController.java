@@ -3,9 +3,8 @@ package tb.blog.server.api.controller;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
-import com.qiniu.common.QiniuException;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.qiniu.http.Response;
-import com.qiniu.storage.model.BatchStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
@@ -56,6 +55,12 @@ public class UploadController {
             String yunFileName = jsonObject.getStr("key");
             String yunFilePath = StrUtil.appendIfMissing("http://" + prefix, "/") + yunFileName;
 
+            // 同一篇文章同一文件只保存一次
+            BlogDocEntity existed = blogDocService.getOne(new QueryWrapper<BlogDocEntity>().eq("article_id", id).eq("name", yunFileName));
+            if (existed != null) {
+                return R.ok(yunFilePath);
+            }
+
             // 将图片数据保存到数据库
             BlogDocEntity doc = new BlogDocEntity();
             doc.setArticleId(id);
@@ -68,17 +73,6 @@ public class UploadController {
 
             return success ? R.ok(yunFilePath) : R.error("保存文件信息失败");
         } catch (IOException e) {
-            return R.error("文件上传失败");
-        }
-    }
-
-    @RequestMapping(value = "/delete", method = RequestMethod.POST, consumes = "application/json")
-    public R delete(@RequestBody String[] keys) {
-        try {
-            Response response = qiNiuService.deleteBatchFile(keys);
-            BatchStatus[] batchStatusList = response.jsonToObject(BatchStatus[].class);
-            return R.ok();
-        } catch (QiniuException e) {
             return R.error("文件上传失败");
         }
     }

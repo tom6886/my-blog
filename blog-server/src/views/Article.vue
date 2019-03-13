@@ -113,6 +113,7 @@
 
                 this.$Message.success('文章发布成功');
                 [this.article.title, this.article.des, this.article.content] = ['', '', ''];
+                localStorage.removeItem("article")
             }
         }
     }

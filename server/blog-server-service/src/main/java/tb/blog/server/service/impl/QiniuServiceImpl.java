@@ -4,6 +4,7 @@ import com.qiniu.common.QiniuException;
 import com.qiniu.http.Response;
 import com.qiniu.storage.BucketManager;
 import com.qiniu.storage.UploadManager;
+import com.qiniu.storage.model.FileInfo;
 import com.qiniu.util.Auth;
 import com.qiniu.util.StringMap;
 import org.springframework.beans.factory.InitializingBean;
@@ -13,6 +14,11 @@ import org.springframework.stereotype.Service;
 import tb.blog.server.service.IQiniuService;
 
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * @author tangbo
@@ -53,6 +59,19 @@ public class QiniuServiceImpl implements IQiniuService, InitializingBean {
         BucketManager.BatchOperations batchOperations = new BucketManager.BatchOperations();
         batchOperations.addDeleteOp(bucket, keys);
         return bucketManager.batch(batchOperations);
+    }
+
+    @Override
+    public List<FileInfo> fileList() throws QiniuException {
+        BucketManager.FileListIterator fileListIterator = bucketManager.createFileListIterator(bucket, "");
+        List<FileInfo> list = new ArrayList<>();
+
+        while (fileListIterator.hasNext()) {
+            FileInfo[] items = fileListIterator.next();
+            list.addAll(Stream.of(items).collect(Collectors.toList()));
+        }
+
+        return list;
     }
 
     @Override
