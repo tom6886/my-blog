@@ -38,4 +38,23 @@
 		FROM
 		blog_doc
 	</select>
+
+    <select id="queryNoRepeatExtraByArticleId" resultType="java.lang.String">
+		SELECT
+			a. NAME
+		FROM
+			blog_doc a
+		JOIN (
+			SELECT
+				`name`
+			FROM
+				blog_doc
+			WHERE
+				article_id = #{id}
+		) b ON a. NAME = b.`name`
+		GROUP BY
+			a.`name`
+		HAVING
+			COUNT(1) = 1
+    </select>
 </mapper>

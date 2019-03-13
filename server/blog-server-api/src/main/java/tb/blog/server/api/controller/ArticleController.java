@@ -15,7 +15,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/article")
 public class ArticleController {
-    
+
     private final IBlogArticleService blogArticleService;
 
     @Autowired
@@ -36,7 +36,7 @@ public class ArticleController {
 
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST, consumes = "application/json")
     public R delete(@PathVariable Long id) {
-        return blogArticleService.removeById(id) ? R.ok() : R.error("删除失败");
+        return blogArticleService.deleteById(id) > 0 ? R.ok() : R.error("删除失败");
     }
 
     @RequestMapping(value = "/entity/{id}", method = RequestMethod.POST, consumes = "application/json")

@@ -1,5 +1,6 @@
 package tb.blog.server.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.qiniu.common.QiniuException;
 import com.qiniu.http.Response;
@@ -92,6 +93,15 @@ public class BlogDocServiceImpl extends ServiceImpl<BlogDocDao, BlogDocEntity> i
             logger.error("调用七牛云查询文件接口失败");
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public int deleteByArticleId(String pageId) {
+        List<String> extras = this.baseMapper.queryNoRepeatExtraByArticleId(pageId);
+        if (extras.size() > 0) {
+            deleteQiNiuDoc(extras);
+        }
+        return this.baseMapper.delete(new QueryWrapper<BlogDocEntity>().eq("article_id", pageId));
     }
 
     /**

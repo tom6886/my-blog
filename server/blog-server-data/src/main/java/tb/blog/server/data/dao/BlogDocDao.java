@@ -31,4 +31,12 @@ public interface BlogDocDao extends BaseMapper<BlogDocEntity> {
      * @return name列表
      */
     List<String> queryAllKeys();
+
+    /**
+     * 根据文章id查询对应的且未被其他文章公用的文件的 name
+     *
+     * @param pageId 文章pageId
+     * @return name列表
+     */
+    List<String> queryNoRepeatExtraByArticleId(String pageId);
 }

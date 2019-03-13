@@ -17,4 +17,12 @@ public interface IBlogDocService extends IService<BlogDocEntity> {
      * 清理七牛云上多余的图片
      */
     void deleteQiNiuExtra();
+
+    /**
+     * 根据文章id删除对应的文件
+     *
+     * @param pageId 文章的page_id
+     * @return 删除行数
+     */
+    int deleteByArticleId(String pageId);
 }
