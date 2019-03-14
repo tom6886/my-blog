@@ -11,7 +11,7 @@
                            v-model="article.des"></Input>
                 </FormItem>
                 <FormItem label="文章内容" prop="content">
-                    <editor :init="editorInit" id="tinymce" v-model="article.content"></editor>
+                    <tinymce :aId="article.pageId" v-model="article.content"></tinymce>
                 </FormItem>
                 <FormItem>
                     <Button @click="beforeSubmit" class="article_button" type="success">发布文章</Button>
@@ -46,30 +46,23 @@
     </div>
 </template>
 <script>
-    import tinymce from 'tinymce/tinymce';
-    import 'tinymce/themes/modern/theme';
-    import Editor from '@tinymce/tinymce-vue';
+    import tinymce from '../components/Tinymce'
     import {fetch} from "../utils/api";
 
     export default {
         components: {
-            'editor': Editor
+            'tinymce': tinymce
         },
         data() {
             return {
                 article: {
                     id: '',
+                    pageId: '',
                     title: '',
                     content: '',
                     publishTime: '',
                     classify: "0",
                     des: ''
-                },
-                editorInit: {
-                    language_url: `${this.$baseUrl}/tinymce/zh_CN.js`,
-                    language: 'zh_CN',
-                    skin_url: `${this.$baseUrl}//tinymce/skins/lightgray`,
-                    height: 300
                 },
                 ruleValidate: {
                     title: [
@@ -86,7 +79,6 @@
             }
         },
         created() {
-            tinymce.init({});
             this.init();
         },
         methods: {

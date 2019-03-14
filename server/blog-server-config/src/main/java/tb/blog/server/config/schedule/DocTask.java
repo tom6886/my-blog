@@ -24,15 +24,15 @@ public class DocTask {
     /**
      * 每天凌晨3点执行一次
      */
-    @Scheduled(cron = "0 0 23 * * *")
+    @Scheduled(cron = "0 0 3 * * ?")
     public void clearDb() {
         blogDocService.deleteDbExtra();
     }
 
     /**
-     * 每周执行一次
+     * 每周星期六凌晨4点执行一次
      */
-    @Scheduled(cron = "0 07 13 * * *")
+    @Scheduled(cron = "0 0 4 ? * 1")
     public void clearYun() {
         blogDocService.deleteQiNiuExtra();
     }
