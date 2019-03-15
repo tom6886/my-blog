@@ -17,8 +17,8 @@
             mode="horizontal"
             text-color="#fff"
             @select="handleSelect">
-            <el-menu-item index="index">前端文章</el-menu-item>
-            <el-menu-item index="back">后端文章</el-menu-item>
+            <el-menu-item index="index">后端文章</el-menu-item>
+            <el-menu-item index="front">前端文章</el-menu-item>
             <el-menu-item index="version">更新日志</el-menu-item>
             <el-menu-item index="about">关于我</el-menu-item>
           </el-menu>
@@ -46,7 +46,7 @@
     },
     methods: {
       handleSelect(key) {
-        this.$router.push({ name: key })
+        this.$router.push({name: key})
       }
     }
   }
