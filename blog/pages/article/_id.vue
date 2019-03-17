@@ -7,7 +7,7 @@
         :span="14"
         class="detail_title">
         <div>{{ title }}</div>
-        <div class="time">发布时间：{{ publishTime }}&nbsp;&nbsp;&nbsp;&nbsp;分类：{{ classify === 0 ? '前端文章' : '后端文章' }}</div>
+        <div class="time">发布日期：{{ publishDate }}&nbsp;&nbsp;&nbsp;&nbsp;分类：{{ classifyName }}</div>
       </el-col>
 
     </el-row>
@@ -29,21 +29,31 @@
 </template>
 
 <script>
-  import { baseurl } from '~/plugins/url.js'
+  import {baseurl} from '~/plugins/url.js'
+  import {classifies} from "../../plugins/utils";
 
   export default {
-    async asyncData({ app, params }) {
-      let { data } = await app.$axios.post(`${baseurl}/article/entity/` + params.id, {})
-      let { content, des, classify, publishTime, title } = data.data
-      return { title, des, content, classify, publishTime }
+    async asyncData({app, params}) {
+      let {data} = await app.$axios.post(`${baseurl}/article/entity/` + params.id, {})
+      let {content, des, classify, publishTime, title} = data.data
+      return {title, des, content, classify, publishTime}
     },
     head() {
       return {
         title: this.title,
         meta: [
-          { hid: 'description', name: 'description', content: `${this.des}` },
-          { hid: 'author', content: 'brian' }
+          {hid: 'description', name: 'description', content: `${this.des}`},
+          {hid: 'author', content: 'brian'}
         ]
+      }
+    },
+    computed: {
+      classifyName() {
+        return classifies[this.classify]
+      },
+      publishDate() {
+        let _time = new Date(this.publishTime);
+        return _time.getFullYear() + '-' + (_time.getMonth() + 1) + '-' + _time.getDate()
       }
     }
   }
