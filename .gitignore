@@ -3,3 +3,4 @@ application-dev.yml
 server/*/target
 blog/package-lock.json
 *.yml
+blog/static/baidu_verify_cw8lGEWNIY.html
