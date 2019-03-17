@@ -38,6 +38,10 @@
                                 <Icon class="iconfont icon-nodejs"></Icon>
                                 <span class="list_menu">后端开发</span>
                             </Radio>
+                            <Radio label="2">
+                                <Icon class="iconfont icon-nodejs"></Icon>
+                                <span class="list_menu">浅尝辄止</span>
+                            </Radio>
                         </RadioGroup>
                     </Card>
                 </FormItem>

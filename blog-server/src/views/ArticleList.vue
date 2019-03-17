@@ -1,7 +1,7 @@
 <template>
     <Row justify="center" type="flex">
         <Col span="24">
-            <h2 style="margin-bottom:0.5%;">前端文章:</h2>
+            <h2 style="margin-bottom:0.5%;">浅尝辄止:</h2>
             <Table :columns="columns" :data="front" border></Table>
             <div class="pagination" v-show="frontPager.total !== 0">
                 <Page :current="frontPager.current" :page-size="frontPager.size" :total="frontPager.total"
@@ -127,7 +127,7 @@
         },
         created() {
             //初始化
-            this.getList(0, 1);
+            this.getList(2, 1);
             this.getList(1, 1);
         },
         methods: {
@@ -147,7 +147,7 @@
                         classify: classify
                     };
                     let res = await fetch("article/list", params);
-                    if (classify === 0) {
+                    if (classify === 2) {
                         this.setFront(res.data);
                     } else {
                         this.setBack(res.data);
@@ -177,7 +177,7 @@
                     }
             },
             frontPage(index) {
-                this.getList(0, index);
+                this.getList(2, index);
             },
             backPage(index) {
                 this.getList(1, index)
