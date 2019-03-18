@@ -15,7 +15,7 @@
           shadow="hover">
           <h2 class="box-title">{{ item.title }}</h2>
           <div class="box-icon">
-            <span><i class="el-icon-date"/>&nbsp;{{ item.publishTime }}</span>
+            <span><i class="el-icon-date"/>&nbsp;{{ formatDate(item.publish_time) }}</span>
           </div>
           <div class="box-content">{{ item.des }}</div>
         </el-card>
@@ -82,6 +82,10 @@
         let {data} = await this.$axios.post(`${baseurl}/article/list`, params)
         this.list = data.data.records
         let count = parseInt(data.data.total)
+      },
+      formatDate(date) {
+        let _time = new Date(date);
+        return _time.getFullYear() + '年' + (_time.getMonth() + 1) + '月' + _time.getDate() + '日'
       }
     }
   }
