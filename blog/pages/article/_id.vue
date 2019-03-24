@@ -25,6 +25,14 @@
         </el-card>
       </el-col>
     </el-row>
+
+    <el-dialog
+      :visible.sync="dialogVisible"
+      width="90%">
+      <img
+        :src="bigImage"
+        width="100%">
+    </el-dialog>
   </div>
 </template>
 
@@ -47,6 +55,12 @@
         ]
       }
     },
+    data() {
+      return {
+        dialogVisible: false,
+        bigImage: ""
+      }
+    },
     computed: {
       classifyName() {
         return classifies[this.classify]
@@ -55,6 +69,15 @@
         let _time = new Date(this.publishTime);
         return _time.getFullYear() + '-' + (_time.getMonth() + 1) + '-' + _time.getDate()
       }
+    },
+    mounted() {
+      let _this = this,
+        _images = document.querySelectorAll(".markdown-body img");
+      console.log(_images)
+      _images.forEach(x => x.addEventListener("click", function () {
+        _this.dialogVisible = true;
+        _this.bigImage = x.src
+      }))
     }
   }
 </script>

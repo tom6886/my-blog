@@ -71,7 +71,7 @@
                 ruleValidate: {
                     title: [
                         {required: true, message: '标题不可为空', trigger: 'blur'},
-                        {type: 'string', max: 25, message: '标题不可超过25个字', trigger: 'blur'}
+                        {type: 'string', max: 50, message: '标题不可超过50个字', trigger: 'blur'}
                     ],
                     content: [
                         {required: true, message: '内容不可为空', trigger: 'blur'}

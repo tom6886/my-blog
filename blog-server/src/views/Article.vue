@@ -72,7 +72,7 @@
                 ruleValidate: {
                     title: [
                         {required: true, message: '标题不可为空', trigger: 'blur'},
-                        {type: 'string', max: 25, message: '标题不可超过25个字', trigger: 'blur'}
+                        {type: 'string', max: 50, message: '标题不可超过50个字', trigger: 'blur'}
                     ],
                     content: [
                         {required: true, message: '内容不可为空', trigger: 'blur'}
@@ -86,9 +86,14 @@
         mounted() {
             let _this = this;
 
-            setInterval(function () {
+            const timer = setInterval(function () {
                 localStorage.setItem("article", JSON.stringify(_this.article));
             }, 30000)
+
+            // 通过$once来监听定时器，在beforeDestroy钩子可以被清除。
+            this.$once('hook:beforeDestroy', () => {
+                clearInterval(timer);
+            })
 
             let _article = localStorage.getItem("article")
 
