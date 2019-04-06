@@ -83,13 +83,53 @@
             }
         },
         created() {
-            this.init();
+            let _update = localStorage.getItem("update");
+            if (!_update) {
+                this.init();
+                return;
+            }
+
+            let _article = JSON.parse(_update);
+            if (_article.id !== this.$route.params.id) {
+                localStorage.removeItem("update");
+                this.init();
+                return;
+            }
+
+            this.confirm(_article);
+        },
+        mounted() {
+            let _this = this;
+
+            const timer = setInterval(function () {
+                localStorage.setItem("update", JSON.stringify(_this.article));
+            }, 30000);
+
+            this.$once('hook:beforeDestroy', () => {
+                clearInterval(timer);
+            });
         },
         methods: {
             async init() {
                 let res = await fetch("article/entity/" + this.$route.params.id, {});
                 this.article = res.data;
                 this.article.classify = this.article.classify.toString();
+            },
+            confirm(article) {
+                let _this = this;
+                _this.$Modal.confirm({
+                    title: '提示',
+                    content: '<p>检测到您本地保存有本文章的副本</p><p>是否直接加载副本？</p>',
+                    okText: '确定',
+                    cancelText: '取消',
+                    onOk: () => {
+                        _this.article = article;
+                    },
+                    onCancel: () => {
+                        localStorage.removeItem("update");
+                        _this.init();
+                    }
+                })
             },
             beforeSubmit() {
                 this.$refs["form"].validate((valid) => {

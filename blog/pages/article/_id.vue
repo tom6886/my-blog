@@ -73,7 +73,6 @@
     mounted() {
       let _this = this,
         _images = document.querySelectorAll(".markdown-body img");
-      console.log(_images)
       _images.forEach(x => x.addEventListener("click", function () {
         _this.dialogVisible = true;
         _this.bigImage = x.src
